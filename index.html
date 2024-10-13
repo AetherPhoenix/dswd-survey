@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DSWD Survey</title>
+    <style>
+        /* Basic page styling */
+        body {
+            font-family: 'Arial', sans-serif;
+            background-image: url('image/9626402.jpg');
+            background: cover;
+            max-width: 100%;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0;
+        }
+
+        /* Card layout for the quiz */
+        .quiz-container {
+            background-color: #fff;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            padding: 30px;
+            text-align: center;
+            width: 100%;
+            max-width: 600px;
+        }
+
+        /* Styling for the question text */
+        .question-box {
+            font-size: 1.6em;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 40px;
+        }
+
+        /* Custom button styling */
+        .button-box {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .button {
+            display: inline-block;
+            padding: 20px 40px;
+            font-size: 30px;
+            cursor: pointer;
+            text-align: center;
+            text-decoration: none;
+            outline: none;
+            color: #fff;
+            background-color: #aa0404;
+            border: none;
+            border-radius: 15px;
+            box-shadow: 0 9px #999;
+        }
+
+        .button:hover {
+            background-color: #8e3e3e;
+        }
+
+        .button:active {
+            background-color: #8e3e3e;
+            box-shadow: 0 5px #666;
+            transform: translateY(4px);
+        }
+
+        /* Custom styling for No button */
+        .no-button {
+            background-color: #0044cc;
+        }
+
+        .no-button:hover {
+            background-color: #0033aa;
+        }
+
+        /* Styling for the answer box */
+        .answer-box {
+            margin-top: 40px;
+            font-size: 1.4em;
+            color: #007BFF;
+        }
+
+        /* Fade effect for transitions */
+        .fade {
+            animation: fadeIn 0.5s;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+    </style>
+    <script>
+        const questions = [
+            "Have your ever felt uneasy in your own home before?",
+            "Have you experienced being abused verbally or physically before?", 
+            "Did you fight back or speak out on it?",
+            "Have you told anyone about it?",
+            "If not, is someone holding you back from telling anyone?",
+            "Have you ever thought about suicide being your only way out?"
+        ];
+        let currentQuestionIndex = 0;
+
+        function showQuestion() {
+            const questionElement = document.getElementById('question');
+            questionElement.textContent = questions[currentQuestionIndex];
+            questionElement.classList.add('fade');  // Add fade effect
+            document.getElementById('answer').textContent = ""; // Clear previous answer
+        }
+
+        function handleAnswer(answer) {
+            const answerElement = document.getElementById('answer');
+            
+            // Move to next question after 1 second if there are more questions
+            setTimeout(() => {
+                if (currentQuestionIndex < questions.length - 1) {
+                    currentQuestionIndex++;
+                    showQuestion();
+                } else {
+                    document.getElementById('question').textContent = "Thank you for answering. Have a great day!";
+                    document.querySelector('.button-box').style.display = 'none'; // Hide buttons
+                }
+            }, 1000);
+        }
+
+        window.onload = function() {
+            showQuestion(); // Show the first question when page loads
+        }
+    </script>
+</head>
+<body>
+
+    <div class="quiz-container">
+        <div class="question-box fade" id="question"></div>
+
+        <div class="button-box">
+            <button class="button" onclick="handleAnswer('Yes')">Yes</button>
+            <button class="button no-button" onclick="handleAnswer('No')">No</button>
+        </div>
+
+        <div class="answer-box" id="answer"></div>
+    </div>
+
+</body>
+</html>
